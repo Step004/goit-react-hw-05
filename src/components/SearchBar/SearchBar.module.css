@@ -1,0 +1,30 @@
+.form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.topLine {
+    width: auto;
+    height: 50px;
+    background-color: blue;
+}
+
+
+.input {
+    width: 300px;
+    height: 25px;
+    padding-left: 30px;
+}
+
+.button {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+}
