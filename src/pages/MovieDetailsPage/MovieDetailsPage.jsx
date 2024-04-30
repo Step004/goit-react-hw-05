@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { getMovieById } from "../../movies-api";
 import { NavLink } from "react-router-dom";
+import css from "./MovieDetailsPage.module.css"
 
 export default function MoviesDetailsPage() {
   const { movieId } = useParams();
@@ -34,22 +35,24 @@ export default function MoviesDetailsPage() {
       <div>
         <Link to={backLinkUrlRef.current}>Go back</Link>
       </div>
-      {imagePath && <img src={imagePath} alt="Movie backdrop" />}
-      {movie && (
-        <div>
-          <h2>{movie.title}</h2>
-          <h3>User score</h3>
-          <p>{Math.round(movie.vote_average * 10)}%</p>
-          <h3>Overview</h3>
-          <p>{movie.overview}</p>
-          <h3>Genres</h3>
-          <ul>
-            {movie.genres.map((genre) => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className={css.container}>
+        {imagePath && <img src={imagePath} alt="Movie backdrop" />}
+        {movie && (
+          <div className={css.partInfo}>
+            <h2>{movie.title}</h2>
+            <h3>User score</h3>
+            <p>{Math.round(movie.vote_average * 10)}%</p>
+            <h3>Overview</h3>
+            <p>{movie.overview}</p>
+            <h3>Genres</h3>
+            <ul>
+              {movie.genres.map((genre) => (
+                <li key={genre.id}>{genre.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
       <ul>
         <li>
           <NavLink to="cast">Cast</NavLink>

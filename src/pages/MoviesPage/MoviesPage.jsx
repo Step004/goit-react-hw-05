@@ -5,7 +5,6 @@ import MovieList from "../../components/MovieList/MovieList";
 import { useSearchParams } from "react-router-dom";
 
 export default function MoviesPage() {
-  const [query, setQuery] = useState("");
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -13,14 +12,12 @@ export default function MoviesPage() {
   const [params, setParams] = useSearchParams();
   const queryParams = params.get("query") ?? "";
   
-  console.log(queryParams);
-  const handleSubmit = (query) => {
-    setQuery(query);
-    setParams(queryParams);
+  const handleSubmit = (params) => {
+    setParams({ query: params });
   };
 
   useEffect(() => {
-    if (query === "") {
+    if (queryParams === "") {
       return;
     }
 
@@ -28,9 +25,9 @@ export default function MoviesPage() {
       try {
         setFilms([]);
         setLoading(true);
-        const data = await searchByQuery(query);
+        const data = await searchByQuery(queryParams);
         setFilms(data.data.results);
-        setParams({ query: query });
+        
       } catch (e) {
         setError(true);
       } finally {
@@ -38,7 +35,7 @@ export default function MoviesPage() {
       }
     }
     fetchMovies();
-  }, [query, setParams]);
+  }, [queryParams, setParams]);
 
   return (
     <>
